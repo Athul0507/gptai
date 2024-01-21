@@ -16,6 +16,12 @@ const port = process.env.PORT;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+app.get('/', (req, res)=>{
+  res.json({
+    message: "hi"
+  })
+})
+
 
 app.post('/generate-itinerary', async (req, res)=>{
 try {
@@ -28,6 +34,8 @@ try {
 }
 
 const itinerary = await generateItinerary(places, duration);
+
+
 
 res.json({
     success: true,
