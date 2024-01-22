@@ -13,7 +13,7 @@ const app = express();
 app.use(cors())
 const port = process.env.PORT;
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 app.get('/', (req, res)=>{
@@ -31,7 +31,7 @@ try {
   console.log(places); 
 
   if (!places) {
-    throw new Error(`Invalid input. places: ${places}`);
+    throw new Error(`Invalid input. places: ${req.body}`);
 }
 
 const itinerary = await generateItinerary(places, duration);
