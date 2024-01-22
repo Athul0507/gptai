@@ -53,7 +53,7 @@ res.json({
 async function generateItinerary(location, duration) {
   const model = genAI.getGenerativeModel({ model: "gemini-pro"});
   console.log("hi"); 
-  const prompt = `You are a trip planner. ${location} - These are the places i want to visit in exactly ${duration} days. Give me an itinerary in JSON format each object represents a day with time slots(starting time and ending time). `
+  const prompt = `You are a trip planner. ${location} - These are the places i want to visit in exactly ${duration} days. Give me an itinerary in pure JSON format each object represents a day with time slots(starting time and ending time). `
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
