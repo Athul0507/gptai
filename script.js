@@ -59,7 +59,7 @@ async function generateItinerary(location, duration) {
   const response = await result.response;
   console.log(response)
   const text = extractTextInSquareBrackets(response.text());
-  console.log(text); 
+  text = JSON.parse(text)
   return (text);
 
 }
