@@ -53,12 +53,18 @@ res.json({
 async function generateItinerary(location, duration) {
   const model = genAI.getGenerativeModel({ model: "gemini-pro"});
   console.log("hi"); 
-  const prompt = `You are a trip planner. ${location} - These are the places i want to visit in exactly ${duration} days. Give me an itinerary in pure JSON format each object represents a day with time slots(starting time and ending time). `
+  const prompt = `You are a trip planner. ${location} - These are the places i want to visit in exactly ${duration} days. Give me an itinerary in pure JSON format each object represents a day with time slots(starting time and ending time).Make sure the response is in a format that can be parsed to JSON directly. do not include any other characters `
+
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
   console.log(response)
+  console.log('************************************************************')
   const text = extractTextInSquareBrackets(response.text());
+  //let modifiedString = text.replace(/\],/g, "]");
+  //console.log(text)
+  console.log("---------------------------------------------------------")
+  console.log(text)
   const textRes = JSON.parse(text)
   return (textRes);
 
@@ -66,8 +72,8 @@ async function generateItinerary(location, duration) {
 
 
 function extractTextInSquareBrackets(inputString) {
-  const fi=  inputString.indexOf('[')
-  const li = inputString.lastIndexOf(']')
+  const fi=  inputString.indexOf('{')
+  const li = inputString.lastIndexOf('}')
   return inputString.slice(fi, (li+1))
 }
 
