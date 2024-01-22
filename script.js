@@ -39,8 +39,8 @@ const itinerary = await generateItinerary(places, duration);
 
 
 res.json({
-    success: true,
-    itinerary,
+   success: true,
+   itinerary
 });
 } catch (error) {
   res.status(400).json({
@@ -53,7 +53,20 @@ res.json({
 async function generateItinerary(location, duration) {
   const model = genAI.getGenerativeModel({ model: "gemini-pro"});
   console.log("hi"); 
-  const prompt = `You are a trip planner. ${location} - These are the places i want to visit in exactly ${duration} days. Give me an itinerary in the following parseable JSON format. Each object represents a day. Each day has a list of activities. Each activity has a place name and start and end time. ADD KEYS place, start and end FOR EACH ACTIVITY. DO NOT ADD days and activities tags. i need the output as a Json parseable string`
+  const prompt = `You are a trip planner. ${location} - These are the places i want to visit in exactly ${duration} days. Give me an itinerary in the following parseable JSON format.
+      {
+        "activities": [
+          {"place": "Place1", "start": "09:00 AM", "end": "11:00 AM"},
+          {"place": "Place2", "start": "12:00 PM", "end": "02:00 PM"},
+          {"place": "Place3", "start": "03:00 PM", "end": "05:00 PM"}
+        ]
+      },
+      {
+        "activities": [
+          {"place": "Place4", "start": "10:00 AM", "end": "12:00 PM"},
+          {"place": "Place5", "start": "01:00 PM", "end": "03:00 PM"}
+        ]
+      }`
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
