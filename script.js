@@ -66,7 +66,11 @@ async function generateItinerary(location, duration) {
           {"place": "Place4", "start": "10:00 AM", "end": "12:00 PM"},
           {"place": "Place5", "start": "01:00 PM", "end": "03:00 PM"}
         ]
-      }`
+      }
+      
+      Build an optimum itinerary, taking into consideration the best time to visit the places mentioned. Visit sunrise places during sunrise timings, sunsets and beaches in the evening, party places at night and shopping and malls in the afternoon
+      
+      `
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
